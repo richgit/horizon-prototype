@@ -1,11 +1,17 @@
-import Layout from '../components/MyLayout.js'
+import Layout from '../components/Layout.js'
 import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
+import * as React from "react";
+import WithAuth from "../components/WithAuth";
 
-export default class Index extends React.Component {
+class Index extends React.Component {
+
     static async getInitialProps() {
+
+        console.log('index:getInitialProps');
+
         const res = await fetch('https://api.tvmaze.com/search/shows?q=batman')
         const data = await res.json()
 
@@ -18,24 +24,6 @@ export default class Index extends React.Component {
 
     render() {
 
-        // const data = [
-        //     {
-        //         name: 'Tanner Linsley',
-        //         age: 26,
-        //         friend: {
-        //             name: 'Jason Maurer',
-        //             age: 23,
-        //         }
-        //     },
-        //     {
-        //         name: 'aaa bbb',
-        //         age: 56,
-        //         friend: {
-        //             name: 'erere  erer',
-        //             age: 99,
-        //         }
-        //     },
-        // ]
         const columns = [
             {
                 Header: 'Name',
@@ -44,9 +32,6 @@ export default class Index extends React.Component {
                 Cell: props => <Link as={`/p/${props.original.id}`} href={`/post?id=${props.original.id}`}>
                          <a>{props.value}</a>
                      </Link>
-                // Cell: ({ row }) => (<Link as={`/p/${row.id}`} href={`/post?id=${row.id}`}>
-                //     <a>{row.name}</a>
-                // </Link>)
             },
             {
                 Header: 'Language',
@@ -60,42 +45,25 @@ export default class Index extends React.Component {
                 Header: 'Rating Average',
                 accessor: 'rating.average',
             },
-            // {
-            //     id: 'friendName', // Required because our accessor is not a string
-            //     Header: 'Friend Name',
-            //     accessor: d => d.friend.name // Custom value accessors!
-            // },
-            // {
-            //     Header: props => <span>Friend Age</span>, // Custom header components!
-            //     accessor: 'friend.age'
-            // }
         ]
-
 
         return (
             <Layout>
 
+                <h1>Batman TV Shows</h1>
+
                 <ReactTable
                     data={this.props.shows}
                     columns={columns}
-                    keyField="id"
+                    defaultPageSize={5}
                 />
 
-                <h1>Batman TV Shows</h1>
-                <ul>
-                    {this.props.shows.map(show => (
-                        <li key={show.id}>
-                            <Link as={`/p/${show.id}`} href={`/post?id=${show.id}`}>
-                                <a>{show.name}</a>
-                            </Link>
-                            <p>{show.language}</p>
-                            <p>{show.premiered}</p>
-                            <p>{show.rating.average}</p>
-                        </li>
-                    ))}
-                </ul>
             </Layout>
         )
     }
 }
+
+const WrappedComponent = (Index);
+
+export default WrappedComponent;
 
