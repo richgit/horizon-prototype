@@ -17,9 +17,9 @@ class ReactiveJobs extends React.Component {
         const res = await
             fetch('https://api.tvmaze.com/search/shows?q=batman', {
                 method: "GET",
-                // headers: {
-                //     'X-Pronto-Token': token
-                // },
+                headers: {
+                    'X-Pronto-Token': token
+                },
             })
 
             fetch('https://api.tvmaze.com/search/shows?q=batman')

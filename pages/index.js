@@ -31,7 +31,7 @@ export default class Index extends React.Component {
         return (
             <Layout>
 
-                <h1>Welcome</h1>
+                <h1>Welcome 1</h1>
 
 
             </Layout>
