@@ -1,12 +1,14 @@
 import Layout from '../components/Layout.js'
-import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
-import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import * as React from "react";
-import WithAuth from "../components/WithAuth";
 
-class Index extends React.Component {
+export default class Index extends React.Component {
+
+    constructor (props) {
+        super(props)
+        console.log('index:constructor');
+    }
 
     static async getInitialProps() {
 
@@ -24,46 +26,16 @@ class Index extends React.Component {
 
     render() {
 
-        const columns = [
-            {
-                Header: 'Name',
 
-                accessor: 'name', // String-based value accessors!
-                Cell: props => <Link as={`/p/${props.original.id}`} href={`/post?id=${props.original.id}`}>
-                         <a>{props.value}</a>
-                     </Link>
-            },
-            {
-                Header: 'Language',
-                accessor: 'language',
-            },
-            {
-                Header: 'Premiered',
-                accessor: 'premiered',
-            },
-            {
-                Header: 'Rating Average',
-                accessor: 'rating.average',
-            },
-        ]
 
         return (
             <Layout>
 
-                <h1>Batman TV Shows</h1>
+                <h1>Welcome</h1>
 
-                <ReactTable
-                    data={this.props.shows}
-                    columns={columns}
-                    defaultPageSize={5}
-                />
 
             </Layout>
         )
     }
 }
-
-const WrappedComponent = (Index);
-
-export default WrappedComponent;
 

@@ -26,9 +26,9 @@ const WithAuth = (WrappedComponent) => {
             //     Router.push(`/login?bb`)
             // }
 
-            // if (!token) {
-            //     RedirectTo('/login', { res: ctx.res, status: 302 })
-            // }
+            if (!token) {
+                RedirectTo(ctx, '/login')
+            }
 
             return {...componentProps, token}
         }

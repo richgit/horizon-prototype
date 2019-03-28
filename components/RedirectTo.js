@@ -1,14 +1,15 @@
 import Router from 'next/router'
 
-export default function RedirectTo(destination, { res, status } = {}) {
-    if (res) {
-        res.writeHead(status || 302, { Location: destination })
-        res.end()
+export default function RedirectTo(context, target) {
+    console.log('RedirectTo, target', target);
+    if (context.res) {
+        // server
+        // 303: "See other"
+        context.res.writeHead(303, {Location: target})
+        context.res.end()
     } else {
-        if (destination[0] === '/' && destination[1] !== '/') {
-            Router.push(destination)
-        } else {
-            window.location = destination
-        }
+        // In the browser, we just pretend like this never even happened ;)
+        Router.push(target)
     }
 }
+
