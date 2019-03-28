@@ -15,14 +15,13 @@ class ReactiveJobs extends React.Component {
         const token = getCookie('pronto-token', ctx.req);
 
         const res = await
-            fetch('https://api.tvmaze.com/search/shows?q=batman', {
+            fetch('http://localhost:3000/pronto/getJobs', {
                 method: "GET",
                 headers: {
                     'X-Pronto-Token': token
                 },
             })
 
-            fetch('https://api.tvmaze.com/search/shows?q=batman')
         const data = await res.json()
 
         console.log(`Show data fetched. Count: ${data.length}`)
