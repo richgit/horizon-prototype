@@ -11,10 +11,17 @@ const pronto = require('./pronto')
 app.prepare().then(() => {
     const server = express()
 
+    server.get('/test', (req, res) => {
+        console.log('server.js:test')
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({a: 1}));
+    })
+
     // Pronto API
     server.use("/pronto", pronto);
 
     server.get('*', (req, res) => {
+        console.log('into nextjs');
         return handle(req, res)
     })
 

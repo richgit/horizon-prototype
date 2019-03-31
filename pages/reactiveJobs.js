@@ -14,8 +14,10 @@ class ReactiveJobs extends React.Component {
 
         const token = getCookie('pronto-token', ctx.req);
 
+        const baseUrl = ctx.req ? `${ctx.req.protocol}://${ctx.req.get('Host')}` : '';
+
         const res = await
-            fetch('http://localhost:3000/pronto/getJobs', {
+            fetch(`${baseUrl}/pronto/getJobs`, {
                 method: "GET",
                 headers: {
                     'X-Pronto-Token': token

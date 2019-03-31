@@ -7,7 +7,7 @@
   "name": "horizon-prototype",
   "version": "1.0.0",
   "description": "Portal Prototype",
-  "main": "about.js",
+  "main": "index.js",
   "author": "Richard Ware",
   "license": "ISC",
   "dependencies": {
