@@ -2,6 +2,8 @@ import Layout from '../components/Layout.js'
 import fetch from 'isomorphic-unfetch'
 import 'react-table/react-table.css'
 import * as React from "react";
+import {getCookie} from "../utils/Cookies";
+import {getBaseApiUrl} from "../utils/Requests";
 
 export default class Index extends React.Component {
 
@@ -16,7 +18,7 @@ export default class Index extends React.Component {
         return (
             <Layout>
 
-                <h1>Welcome 1</h1>
+                <h1>Welcome</h1>
 
 
             </Layout>

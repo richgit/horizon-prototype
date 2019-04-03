@@ -1,6 +1,6 @@
 // www/pages/login.js
 
-import { Component } from 'react'
+import {Component} from 'react'
 import fetch from 'isomorphic-unfetch'
 import Layout from "../components/Layout";
 import {setCookie} from "../utils/Cookies";

@@ -6,31 +6,42 @@ import 'react-table/react-table.css'
 import * as React from "react";
 import WithAuth from "../components/WithAuth";
 import {getCookie} from "../utils/Cookies";
+import {getBaseApiUrl} from "../utils/Requests";
 
 class ReactiveJobs extends React.Component {
     static async getInitialProps(ctx) {
 
         console.log('reactivejobs:getInitialProps');
 
-        const token = getCookie('pronto-token', ctx.req);
+        try {
+            const token = getCookie('pronto-token', ctx.req);
 
-        const baseUrl = ctx.req ? `${ctx.req.protocol}://${ctx.req.get('Host')}` : '';
+            const baseUrl = getBaseApiUrl(ctx.req);
 
-        const res = await
-            fetch(`${baseUrl}/pronto/getJobs`, {
-                method: "GET",
-                headers: {
-                    'X-Pronto-Token': token
-                },
-            })
+            console.log('baseUrl',baseUrl)
 
-        const data = await res.json()
+            const res = await
+                fetch(`${baseUrl}/api/pronto/getJobs`, {
+                    method: "GET",
+                    headers: {
+                        'X-Pronto-Token': token
+                    },
+                })
 
-        console.log(`Show data fetched. Count: ${data.length}`)
+            const data = await res.json()
 
-        return {
-            shows: data.map(entry => entry.show)
+            console.log(`Show data fetched. Count: ${data.length}`)
+
+            return {
+                shows: data.map(entry => entry.show)
+            }
+
+
+        } catch (err) {
+            console.log('ERROR in call to API');
+
         }
+
     }
 
     render() {

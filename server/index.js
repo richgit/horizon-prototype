@@ -6,7 +6,6 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({dev})
 const handle = app.getRequestHandler()
 
-const pronto = require('./pronto')
 
 app.prepare().then(() => {
     const server = express()
@@ -18,7 +17,6 @@ app.prepare().then(() => {
     })
 
     // Pronto API
-    server.use("/pronto", pronto);
     server.get("/getJobs", (req, res) => {
         console.log('server.js: api/pronto')
 
@@ -39,7 +37,6 @@ app.prepare().then(() => {
                 res.redirect('/error');
             });
     });
-error
     server.get('*', (req, res) => {
         console.log('into nextjs');
         return handle(req, res)
