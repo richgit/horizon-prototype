@@ -3,8 +3,6 @@ var fetch = require('isomorphic-unfetch');
 
 module.exports = (req, res) => {
 
-    console.log(req.headers['x-pronto-token']);
-    console.log(req.headers['x-pronto-token'] != 'QpwL5tke4Pnpja7X');
     if (req.headers['x-pronto-token'] != 'QpwL5tke4Pnpja7X') {
         res.end('incorrect token');
     }

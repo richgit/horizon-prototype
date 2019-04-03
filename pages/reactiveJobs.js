@@ -18,8 +18,6 @@ class ReactiveJobs extends React.Component {
 
             const baseUrl = getBaseApiUrl(ctx.req);
 
-            console.log('baseUrl',baseUrl)
-
             const res = await
                 fetch(`${baseUrl}/api/pronto/getJobs`, {
                     method: "GET",
