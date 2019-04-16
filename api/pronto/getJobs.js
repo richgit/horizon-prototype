@@ -6,6 +6,9 @@ module.exports = (req, res) => {
     if (req.headers['x-pronto-token'] != 'QpwL5tke4Pnpja7X') {
         res.end('incorrect token');
     }
+
+    const searchParam =
+
     fetch('https://api.tvmaze.com/search/shows?q=batman', {
         method: "GET",
         headers: {
