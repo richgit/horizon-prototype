@@ -5,22 +5,25 @@ import fetch from 'isomorphic-unfetch'
 import Layout from "../components/Layout";
 import {setCookie} from "../utils/Cookies";
 
-class Login extends Component {
-    // static getInitialProps ({ req }) {
-        // const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
-        //
-        // const apiUrl = process.browser
-        //     ? `${protocol}://${window.location.host}/api/login.js`
-        //     : `${protocol}://${req.headers.host}/api/login.js`
+const LOGIN_URL = 'https://aquaheat-xi-03.prontohosted.com.au/';
 
-        // return { apiUrl }
+class Login extends Component {
+
+    // static getInitialProps ({ req }) {
+    // const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
+    //
+    // const apiUrl = process.browser
+    //     ? `${protocol}://${window.location.host}/api/login.js`
+    //     : `${protocol}://${req.headers.host}/api/login.js`
+
+    // return { apiUrl }
     // }
 
-    constructor (props) {
+    constructor(props) {
         super(props)
         console.log('login:constructor');
 
-        this.state = { username: '', password: '', error: '' }
+        this.state = {username: '', password: '', error: ''}
         // this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -29,7 +32,7 @@ class Login extends Component {
     //     this.setState({ username: event.target.value })
     // }
 
-    async handleSubmit (event) {
+    async handleSubmit(event) {
 
         console.log(this.state)
         event.preventDefault()
@@ -39,9 +42,9 @@ class Login extends Component {
 
         try {
             // login(this.state.username, this.state.password)
-            const response = await fetch('https://reqres.in/api/login', {
+            const response = await fetch(this.LOGIN_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
                     username,
                     password
@@ -49,13 +52,13 @@ class Login extends Component {
 
             })
             if (response.ok) {
-                const { token } = await response.json()
+                const {token} = await response.json()
                 console.log('got token from API', token);
                 setCookie('pronto-token', token);
                 // login({ token })
             } else {
                 console.log('Login failed.')
-                // https://github.com/developit/unfetch#caveats
+
                 let error = new Error(response.statusText)
                 error.response = response
                 return Promise.reject(error)
@@ -69,7 +72,7 @@ class Login extends Component {
         }
     }
 
-    render () {
+    render() {
         return (
             <Layout>
                 <div className='login'>
@@ -81,7 +84,7 @@ class Login extends Component {
                             id='username'
                             name='username'
                             value={this.state.username}
-                            onChange={e => this.setState({ username: e.target.value })}
+                            onChange={e => this.setState({username: e.target.value})}
                             // onChange={this.handleChange}
                         />
 
@@ -91,7 +94,7 @@ class Login extends Component {
                             name='password'
                             value={this.state.password}
                             // onChange={this.handleChange}
-                            onChange={e => this.setState({ password: e.target.value })}
+                            onChange={e => this.setState({password: e.target.value})}
                         />
 
                         <button type='submit'>Login</button>

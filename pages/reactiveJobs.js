@@ -36,7 +36,7 @@ class ReactiveJobs extends React.Component {
 
 
         } catch (err) {
-            console.log('ERROR in call to API');
+            console.log('ERROR in call to API', err);
 
         }
 
