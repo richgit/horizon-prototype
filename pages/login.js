@@ -75,6 +75,9 @@ class Login extends Component {
     render() {
         return (
             <Layout>
+                <div className="alert alert-warning" role="alert">
+                    You need to log on to access resticted areas of this site
+                </div>
                 <div className='login'>
                     <form onSubmit={this.handleSubmit}>
                         <label htmlFor='username'>Pronto Credentials</label>

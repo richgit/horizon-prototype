@@ -60,7 +60,9 @@ export default class Index extends React.Component {
                     <h3 className="display-4">Welcome to Horizon Pronto Portal</h3>
                     <p className="lead">This is a prototype of Pronto.</p>
                     <hr className="my-4"/>
-                    <p>Blah, blah, blah.</p>
+                    <p>This prototype is a 'Proof of Concept' project to demonstrate the capabilites of a web-based
+                        portal</p>
+                    <p>For more information, please contact Melanie Hawksworth on 021 902 405</p>
                     <p className="lead d-flex justify-content-between">
                         <Link prefetch href="/login">
                             <a className="btn btn-primary btn-lg">Login</a>
@@ -79,12 +81,13 @@ export default class Index extends React.Component {
                             return (
                                 <div key={index} className="col-sm-6 col-md-4 col-lg-3 mt-4">
                                     <div className="card">
+                                        <BlogImage image={blog.data.image}/>
                                         <div className="card-body">
                                             <p className="font-weight-light">18th April 2019</p>
-                                            <h4 className="font-italic">
+                                            <h5 className="font-italic">
                                                 {blog.data.title[0].text}
-                                            </h4>
-                                            <BlogImage image={blog.data.image}/>
+                                            </h5>
+
                                             <div className="card-text">
                                                 {RichText.render(blog.data.body)}
                                             </div>
@@ -107,9 +110,9 @@ function BlogImage(props) {
 
     if (props.image.url) {
         return (
-                <img classname="card-img-top img-fluid" src={props.image.url}
-                     alt={props.image.alt}/>
-            )
+            <img className="card-img-top img-fluid" src={props.image.url}
+                 alt={props.image.alt}/>
+        )
     }
     return '';
 }
