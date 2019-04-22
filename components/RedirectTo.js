@@ -1,6 +1,6 @@
 import Router from 'next/router'
 
-export default function RedirectTo(context, target, message) {
+export default function RedirectTo(context, target) {
     console.log('RedirectTo, target', target);
     if (context.res) {
         // server

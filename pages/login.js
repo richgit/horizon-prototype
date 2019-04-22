@@ -57,11 +57,7 @@ class Login extends Component {
                 setCookie('pronto-token', token);
                 // login({ token })
             } else {
-                console.log('Login failed.')
-
-                let error = new Error(response.statusText)
-                error.response = response
-                return Promise.reject(error)
+                console.error('Login failed.')
             }
         } catch (error) {
             console.error(

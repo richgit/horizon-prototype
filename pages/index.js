@@ -13,6 +13,7 @@ export default class Index extends React.Component {
     static async getInitialProps({req, query}) {
         const data = await Prismic.getApi(apiEndpoint, {req: req})
             .then(api => {
+
                 return api.query(
                     Prismic.Predicates.at('document.type', 'blog_post'),
                     {
@@ -25,31 +26,6 @@ export default class Index extends React.Component {
 
         return {blogs: data.results};
     }
-
-    static async getInitialPropsOld(ctx) {
-
-        console.log('getInitialProps');
-
-        var Prismic = require('prismic-javascript');
-
-        const blogs = await Prismic.getApi(apiEndpoint, {req: ctx.req})
-            .then(function (api) {
-                return api.query(
-                    Prismic.Predicates.at('document.type', 'blog_post'),
-                    {
-                        orderings: '[my.blog_post.date desc]',
-                        fetchLinks: 'author.name'
-                    }
-                ); // An empty query will return all the documents
-            }).then(function (response) {
-                console.log("Documents: ", response.results);
-            }, function (err) {
-                console.log("Something went wrong: ", err);
-            });
-
-        return {'blogs': blogs};
-    };
-
 
     render() {
 
@@ -78,6 +54,7 @@ export default class Index extends React.Component {
                 <div className="container">
                     <div className="row">
                         {this.props.blogs.map(function (blog, index) {
+
                             return (
                                 <div key={index} className="col-sm-6 col-md-4 col-lg-3 mt-4">
                                     <div className="card">
@@ -105,6 +82,7 @@ export default class Index extends React.Component {
     }
 
 }
+
 
 function BlogImage(props) {
 
