@@ -70,7 +70,7 @@ class ReactiveJobs extends React.Component {
         return (
             <Layout>
 
-                <h1>Batman TV Shows</h1>
+                <h1>Reactive Maintenance</h1>
 
                 <ReactTable
                     data={this.props.shows}

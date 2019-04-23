@@ -17,7 +17,7 @@ export default class Index extends React.Component {
 
                 return api.query(
                     Prismic.Predicates.at('document.type', 'blog_post'),
-                    {orderings : '[document.last_publication_date desc]' }
+                    {orderings: '[document.last_publication_date desc]'}
                 );
             })
             .catch(err => console.log(err));
@@ -75,7 +75,11 @@ export default class Index extends React.Component {
                         })}
                     </div>
                 </div>
-
+                <style jsx>{`
+          .card {
+            min-height: 380px;
+          }
+        `}</style>
             </Layout>
         )
     }
@@ -93,13 +97,20 @@ function BlogDate(props) {
     )
 }
 
-    function BlogImage(props) {
+function BlogImage(props) {
 
-        if (props.image.url) {
-            return (
+    if (props.image.url) {
+        return (
+            <div className="img-wrapper d-flex justify-content-center align-items-center">
                 <img className="card-img-top img-fluid" src={props.image.url}
                      alt={props.image.alt}/>
-            )
-        }
-        return '';
+                <style jsx>{`
+          .img-wrapper {
+          min-height: 125px
+          }
+        `}</style>
+            </div>
+        )
     }
+    return '';
+}
