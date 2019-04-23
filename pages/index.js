@@ -5,6 +5,7 @@ import Prismic from 'prismic-javascript';
 import * as PrismicDOM from "prismic-dom";
 import Link from 'next/link'
 import {RichText, Date} from 'prismic-reactjs';
+import moment from "moment";
 
 const apiEndpoint = "https://horizon-prototype.prismic.io/api/v2";
 
@@ -16,10 +17,7 @@ export default class Index extends React.Component {
 
                 return api.query(
                     Prismic.Predicates.at('document.type', 'blog_post'),
-                    {
-                        orderings: '[my.blog_post.date desc]',
-                        fetchLinks: 'author.full_name'
-                    }
+                    {orderings : '[document.last_publication_date desc]' }
                 );
             })
             .catch(err => console.log(err));
@@ -60,7 +58,7 @@ export default class Index extends React.Component {
                                     <div className="card">
                                         <BlogImage image={blog.data.image}/>
                                         <div className="card-body">
-                                            <p className="font-weight-light">18th April 2019</p>
+
                                             <h5 className="font-italic">
                                                 {blog.data.title[0].text}
                                             </h5>
@@ -68,7 +66,8 @@ export default class Index extends React.Component {
                                             <div className="card-text">
                                                 {RichText.render(blog.data.body)}
                                             </div>
-                                            <p className="font-italic font-weight-light">by Richard Ware</p>
+                                            <BlogDate date={blog.last_publication_date}/>
+                                            {/*<p className="font-italic font-weight-light">by Richard Ware</p>*/}
                                         </div>
                                     </div>
                                 </div>
@@ -84,13 +83,23 @@ export default class Index extends React.Component {
 }
 
 
-function BlogImage(props) {
+function BlogDate(props) {
 
-    if (props.image.url) {
-        return (
-            <img className="card-img-top img-fluid" src={props.image.url}
-                 alt={props.image.alt}/>
-        )
-    }
-    return '';
+    const timestamp = Date(props.date);
+    const formattedDate = moment(timestamp).fromNow();
+    return (
+        <p className="font-weight-light">{formattedDate}</p>
+
+    )
 }
+
+    function BlogImage(props) {
+
+        if (props.image.url) {
+            return (
+                <img className="card-img-top img-fluid" src={props.image.url}
+                     alt={props.image.alt}/>
+            )
+        }
+        return '';
+    }
