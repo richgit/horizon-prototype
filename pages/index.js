@@ -30,7 +30,7 @@ export default class Index extends React.Component {
         console.log('this.props.blogs', this.props.blogs);
         return (
             <Layout>
-                <div className="jumbotron">
+                <div className="jumbotron p-4">
                     <h3 className="display-4">Welcome to Horizon Pronto Portal</h3>
                     <p className="lead">This is a prototype of Pronto.</p>
                     <hr className="my-4"/>

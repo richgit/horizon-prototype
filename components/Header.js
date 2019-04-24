@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function Header() {
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light static-top border-bottom shadow">
+        <nav className="navbar navbar-expand-md navbar-light bg-light static-top border-bottom shadow">
             <div className="container">
                 <a className="navbar-brand" href="#">
                     <img src="../static/images/heg-logo-portal.png" alt="HEG logo"/>
@@ -13,12 +13,12 @@ export default function Header() {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarResponsive">
                     <ul className="navbar-nav ml-auto ">
-                        <li className="nav-item pt-3 pr-4">
+                        <li className="nav-item pt-md-3 pt-2 pr-4">
                             <Link prefetch href="/index">
                                 <a className="text-dark">Home</a>
                             </Link>
                         </li>
-                        <li className="nav-item pt-3 pr-4">
+                        <li className="nav-item pt-md-3 pt-2 pr-4">
                             <Link prefetch href="/reactiveJobs">
                                 <a className="text-dark">Reactive Jobs</a>
                             </Link>

@@ -5,17 +5,17 @@ export default function Footer() {
         <div>
             <footer className="mt-3 pt-3 d-flex flex-column">
                 <h5 className="text-white font-italic text-center pt-2">Members of the Horizon Energy Group</h5>
-                <ul className="nav justify-content-center p-2">
-                    <li className="nav-item px-2"><a className="text-white" href="http://www.aquaheat.co.nz"
-                                                     target="_blank">Aquaheat New Zealand</a></li>
-                    <li className="nav-item px-2"><a className="text-white" href="http://www.coollogic.co.nz"
-                                                     target="_blank">Cool Logic</a></li>
-                    <li className="nav-item px-2"><a className="text-white" href="http://www.electriserv.co.nz"
-                                                     target="_blank">ElectriServ</a></li>
-                    <li className="nav-item px-2"><a className="text-white" href="http://www.horizonnetworks.nz"
-                                                     target="_blank">Horizon Networks</a></li>
-                    <li className="nav-item px-2"><a className="text-white" href="http://www.electrinet.co.nz/"
-                                                     target="_blank">ElectriNET</a></li>
+                <ul className="nav justify-content-center p-2 flex-column flex-md-row align-items-center">
+                    <li className="nav-item px-2"><a className="text-white" href="http://www.aquaheat.co.nz">Aquaheat
+                        New Zealand</a></li>
+                    <li className="nav-item px-2"><a className="text-white" href="http://www.coollogic.co.nz">Cool
+                        Logic</a></li>
+                    <li className="nav-item px-2"><a className="text-white"
+                                                     href="http://www.electriserv.co.nz">ElectriServ</a></li>
+                    <li className="nav-item px-2"><a className="text-white" href="http://www.horizonnetworks.nz">Horizon
+                        Networks</a></li>
+                    <li className="nav-item px-2"><a className="text-white"
+                                                     href="http://www.electrinet.co.nz/">ElectriNET</a></li>
                 </ul>
                 <ul className="nav justify-content-center p-2">
                     <li className="social px-2"><h4><a className="text-white"

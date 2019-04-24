@@ -72,67 +72,35 @@ class Login extends Component {
         return (
             <Layout>
                 <div className="alert alert-warning" role="alert">
-                    You need to log on to access resticted areas of this site
+                    You need to log on to access resticted areas of this site.
                 </div>
-                <div className='login'>
-                    <form onSubmit={this.handleSubmit}>
-                        <label htmlFor='username'>Pronto Credentials</label>
-
-                        <input
-                            type='text'
-                            id='username'
-                            name='username'
-                            value={this.state.username}
-                            onChange={e => this.setState({username: e.target.value})}
-                            // onChange={this.handleChange}
+                <form className="mx-5" onSubmit={this.handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="username">Userid</label>
+                        <input type="text" className="form-control"
+                               aria-describedby="emailHelp" placeholder="Enter Userid"
+                               id='username'
+                               name='username'
+                               value={this.state.username}
+                               onChange={e => this.setState({username: e.target.value})}
+                               required
                         />
 
-                        <input
-                            type='password'
-                            id='password'
-                            name='password'
-                            value={this.state.password}
-                            // onChange={this.handleChange}
-                            onChange={e => this.setState({password: e.target.value})}
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">Password</label>
+                        <input type="password" className="form-control"
+                               placeholder="Password"
+                               id='password'
+                               name='password'
+                               value={this.state.password}
+                               onChange={e => this.setState({password: e.target.value})}
+                               required
                         />
+                    </div>
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                </form>
 
-                        <button type='submit'>Login</button>
-
-                        <p className={`error ${this.state.error && 'show'}`}>
-                            {this.state.error && `Error: ${this.state.error}`}
-                        </p>
-                    </form>
-                </div>
-                <style jsx>{`
-          .login {
-            max-width: 340px;
-            margin: 0 auto;
-            padding: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-          }
-          form {
-            display: flex;
-            flex-flow: column;
-          }
-          label {
-            font-weight: 600;
-          }
-          input {
-            padding: 8px;
-            margin: 0.3rem 0 1rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-          }
-          .error {
-            margin: 0.5rem 0 0;
-            display: none;
-            color: brown;
-          }
-          .error.show {
-            display: block;
-          }
-        `}</style>
             </Layout>
         )
     }
