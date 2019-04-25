@@ -1,5 +1,6 @@
 import Header from './Header'
 import Footer from "./Footer";
+import Headroom from "react-headroom";
 
 export default function Layout(props) {
     return (
@@ -14,8 +15,9 @@ export default function Layout(props) {
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
 
-
-            <Header/>
+            <Headroom>
+                <Header/>
+            </Headroom>
             <div className="container mt-5">
                 {props.children}
             </div>

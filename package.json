@@ -24,6 +24,7 @@
     "prismic-reactjs": "^0.3.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-headroom": "^2.2.8",
     "react-table": "^6.9.2"
   },
   "devDependencies": {
