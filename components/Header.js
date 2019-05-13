@@ -7,6 +7,9 @@ export default function Header() {
                 <a className="navbar-brand" href="#">
                     <img src="../static/images/heg-logo-portal.png" alt="HEG logo"/>
                 </a>
+                <a className="navbar-brand" href="#">
+                    <img height="74" width="auto" src="../static/images/adhb-logo.png" alt="ADHB logo"/>
+                </a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                         aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -37,9 +40,6 @@ export default function Header() {
                 </div>
             </div>
         </nav>
-
-
-
 
 
     )

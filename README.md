@@ -1,6 +1,6 @@
 # Horizon Prototype
 
-This is a prototype to test access to Pronto API
+This is a prototype to test the Pronto API. It is not production quality code 
 
 ### Structure
 
