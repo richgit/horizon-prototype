@@ -2,7 +2,7 @@ import cookie from "js-cookie";
 
 export const setCookie = (key, value) => {
     if (process.browser) {
-        console.log('setCookie, in browser so setting')
+        console.log('setCookie, in browser so setting, key=' + key + 'value=' + value);
         cookie.set(key, value, {
             expires: 1,
             path: "/"

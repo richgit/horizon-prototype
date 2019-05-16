@@ -3,28 +3,39 @@ var fetch = require('isomorphic-unfetch');
 
 module.exports = (req, res) => {
 
-    if (req.headers['x-pronto-token'] != 'QpwL5tke4Pnpja7X') {
-        res.end('incorrect token');
-    }
-
-    const searchParam =
-
-    fetch('https://api.tvmaze.com/search/shows?q=batman', {
-        method: "GET",
+    fetch('https://aquaheat-xi-03.prontohosted.com.au/pronto/rest/t15.customerportal/api/ServiceGetServiceCalls', {
+        method: "POST",
         headers: {
-            'X-Pronto-Token': req.headers['x-pronto-token']
+            'X-Pronto-Token': req.headers['x-pronto-token'],
+            'Content-Type': 'application/xml'
         },
+        body: '<ServiceGetServiceCallsRequest>\n' +
+            '    <RequestFields>\n' +
+            '        <ServiceCalls>\n' +
+            '            <ServiceCall>\n' +
+            '                <CallNo />\n' +
+            '                <Action />\n' +
+            '                <CallDescription />\n' +
+            '                <RequiredDate />\n' +
+            '                <CustomerName />\n' +
+            '                <CustomerCode />\n' +
+            '                <TypeCode />\n' +
+            '            </ServiceCall>\n' +
+            '        </ServiceCalls>\n' +
+            '    </RequestFields>\n' +
+            '</ServiceGetServiceCallsRequest>'
+    }).then(function (response) {
+        // console.log('api getJobs: response', response);
+        return response.text();
     })
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (jsonData) {
-            res.setHeader('Content-Type', 'application/json')
-            res.end(JSON.stringify(jsonData))
+        .then(function (xmlData) {
+            // console.log('xmlData', xmlData);
+            res.setHeader('Content-Type', 'application/xml')
+            res.end(xmlData)
         })
         .catch(err => {
             console.log("Promise Rejected");
-            res.end('Error in API');
+            res.end('Error in API', err);
         });
 
 

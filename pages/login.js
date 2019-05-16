@@ -4,10 +4,20 @@ import {Component} from 'react'
 import fetch from 'isomorphic-unfetch'
 import Layout from "../components/Layout";
 import {setCookie} from "../utils/Cookies";
-
-const LOGIN_URL = 'https://aquaheat-xi-03.prontohosted.com.au/';
+import {getBaseApiUrl} from "../utils/Requests";
+import parse from "xml-parser";
 
 class Login extends Component {
+
+    static async getInitialProps(ctx) {
+
+        const baseUrl = getBaseApiUrl(ctx.req);
+
+        return {
+            baseUrl: baseUrl
+        }
+
+    }
 
     // static getInitialProps ({ req }) {
     // const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
@@ -40,32 +50,41 @@ class Login extends Component {
         const password = this.state.password
         // const url = this.props.apiUrl
 
-        try {
-            // login(this.state.username, this.state.password)
-            const response = await fetch(this.LOGIN_URL, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    username,
-                    password
-                })
+        // try {
+        console.log('window.location.hostname', window.location.hostname);
 
-            })
-            if (response.ok) {
-                const {token} = await response.json()
-                console.log('got token from API', token);
-                setCookie('pronto-token', token);
-                // login({ token })
-            } else {
-                console.error('Login failed.')
+        const response = await fetch(`${this.props.baseUrl}/api/pronto/login`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Pronto-Username': username,
+                    'X-Pronto-Password': password
+                }
             }
-        } catch (error) {
-            console.error(
-                'You have an error in your code or there are Network issues.',
-                error
-            )
-            throw new Error(error)
-        }
+        )
+
+        const xmlString = await response.text() // TODO do we need this?
+        console.log('xmlString', xmlString);
+        const jsonData = parse(xmlString);
+        console.log('jsonData', jsonData);
+        setCookie('pronto-token', jsonData.root.children[0].content); // TODO better way to do this
+        //     if (response.ok) {
+        //         console.log('resp',response);
+        //         const xmlString = await response.text()
+        //         const {token} = await response.json()
+        //         console.log('got token from API', token);
+        //         setCookie('pronto-token', token);
+        //         // login({ token })
+        //     } else {
+        //         console.error('Login failed.')
+        //     }
+        // } catch (error) {
+        //     console.error(
+        //         'You have an error in your code or there are Network issues.',
+        //         error
+        //     )
+        //     throw new Error(error)
+        // }
     }
 
     render() {

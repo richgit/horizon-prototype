@@ -6,38 +6,38 @@ import 'react-table/react-table.css'
 import * as React from "react";
 import WithAuth from "../components/WithAuth";
 import {getCookie} from "../utils/Cookies";
-import {getBaseApiUrl} from "../utils/Requests";
+import parse from "xml-parser";
+import {getBaseApiUrl, xmlToJson} from "../utils/Requests";
+
 
 class ReactiveJobs extends React.Component {
     static async getInitialProps(ctx) {
 
         console.log('reactivejobs:getInitialProps');
 
-        try {
-            const token = getCookie('pronto-token', ctx.req);
+        const token = getCookie('pronto-token', ctx.req);
 
-            const baseUrl = getBaseApiUrl(ctx.req);
+        const baseUrl = getBaseApiUrl(ctx.req);
 
-            const res = await
-                fetch(`${baseUrl}/api/pronto/getJobs`, {
-                    method: "GET",
-                    headers: {
-                        'X-Pronto-Token': token
-                    },
-                })
+        console.log('before fetch');
+        const res = await
+            fetch(`${baseUrl}/api/pronto/getJobs`, {
+                method: "GET",
+                headers: {
+                    'X-Pronto-Token': token
+                },
+            })
 
-            const data = await res.json()
+        const xmlString = await res.text() // TODO do we need this?
 
-            console.log(`Show data fetched. Count: ${data.length}`)
+        const jsonData = parse(xmlString);
 
-            return {
-                shows: data.map(entry => entry.show)
-            }
+        // console.log('parse', jsonData.root.children[1].children);
 
+        // console.log(`RJ page: Count: ${xmlString.length}`)
 
-        } catch (err) {
-            console.log('ERROR in call to API', err);
-
+        return {
+            shows: jsonData.root.children[1].children // TODO better way to do this
         }
 
     }
@@ -46,24 +46,24 @@ class ReactiveJobs extends React.Component {
 
         const columns = [
             {
-                Header: 'Name',
-
-                accessor: 'name', // String-based value accessors!
-                Cell: props => <Link as={`/p/${props.original.id}`} href={`/post?id=${props.original.id}`}>
-                    <a>{props.value}</a>
-                </Link>
+                Header: 'Call Number',
+                accessor: 'children[2].content', // String-based value accessors!
             },
             {
-                Header: 'Language',
-                accessor: 'language',
+                Header: 'Customer Code',
+                accessor: 'children[3].content',
             },
             {
-                Header: 'Premiered',
-                accessor: 'premiered',
+                Header: 'Customer Name',
+                accessor: 'children[4].content',
             },
             {
-                Header: 'Rating Average',
-                accessor: 'rating.average',
+                Header: 'Type Code',
+                accessor: 'children[7].content',
+            },
+            {
+                Header: 'Description',
+                accessor: 'children[1].content',
             },
         ]
 
@@ -75,7 +75,7 @@ class ReactiveJobs extends React.Component {
                 <ReactTable
                     data={this.props.shows}
                     columns={columns}
-                    defaultPageSize={5}
+                    defaultPageSize={10}
                 />
 
             </Layout>

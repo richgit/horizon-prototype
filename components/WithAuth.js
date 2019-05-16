@@ -17,18 +17,9 @@ const WithAuth = (WrappedComponent) => {
                 WrappedComponent.getInitialProps &&
                 (await WrappedComponent.getInitialProps(ctx))
 
-            // if (ctx && ctx.req) {
-            //     console.log('server side')
-            //     ctx.res.writeHead(302, {Location: `/login?aa`})
-            //     ctx.res.end()
-            // } else {
-            //     console.log('client side')
-            //     Router.push(`/login?bb`)
+            // if (!token) {
+            //     RedirectTo(ctx, '/login')
             // }
-
-            if (!token) {
-                RedirectTo(ctx, '/login')
-            }
 
             return {...componentProps, token}
         }

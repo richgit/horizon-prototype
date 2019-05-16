@@ -5,6 +5,7 @@
     { "src": "api/**/*.js", "use": "@now/node" }
   ],
   "routes": [
-    { "src": "/api/pronto/getJobs", "dest": "/api/pronto/getJobs.js" }
+    { "src": "/api/pronto/getJobs", "dest": "/api/pronto/getJobs.js" },
+    { "src": "/api/pronto/login", "dest": "/api/pronto/login.js" }
   ]
 }
