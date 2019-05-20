@@ -27,7 +27,7 @@
     "react-dom": "^16.8.6",
     "react-headroom": "^2.2.8",
     "react-table": "^6.9.2",
-    "xml-parser": "^1.2.1"
+   "xml-parser": "^1.2.1"
   },
   "devDependencies": {
     "now-lambda-runner": "^3.3.0"

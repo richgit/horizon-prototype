@@ -21,11 +21,10 @@ class ReactiveJobDetail extends React.Component {
 
         console.log('before fetch');
         const res = await
-            fetch(`${baseUrl}/api/pronto/job`, {
+            fetch(`${baseUrl}/api/pronto/job/${ctx.query.id}`, {
                 method: "GET",
                 headers: {
                     'X-Pronto-Token': token,
-                    'jobid': ctx.query.id
                 },
             })
 
@@ -55,7 +54,7 @@ class ReactiveJobDetail extends React.Component {
                 <div className="my-3 d-flex flex-column flex-md-row align-items-center flex-column-reverse justify-content-between">
                     <h1>Call Number {job.children[2].content}</h1>
                     <Link prefetch href="/reactiveJobs">
-                        <a className="my-sm-3 btn btn-primary btn-lg">Back to all Reactive Jobs</a>
+                        <a className="my-3 btn btn-primary btn-lg">Back to all Reactive Jobs</a>
                     </Link>
                 </div>
 

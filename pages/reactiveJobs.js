@@ -48,7 +48,7 @@ class ReactiveJobs extends React.Component {
             {
                 Header: 'Call Number',
                 accessor: 'children[2].content', // String-based value accessors!
-                Cell: props => <Link as={`/reactiveJobDetail?${props.value}`} href={`/reactiveJobDetail?id=${props.value}`}>
+                Cell: props => <Link as={`/reactiveJobDetail?id=${props.value}`} href={`/reactiveJobDetail?id=${props.value}`}>
                     <a>{props.value}</a>
                 </Link>
             },

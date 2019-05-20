@@ -1,4 +1,3 @@
-const request = require("request");
 var fetch = require('isomorphic-unfetch');
 
 module.exports = (req, res) => {
