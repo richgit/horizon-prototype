@@ -32,12 +32,12 @@ class ReactiveJobs extends React.Component {
 
         const jsonData = parse(xmlString);
 
-        // console.log('parse', jsonData.root.children[1].children);
-
-        // console.log(`RJ page: Count: ${xmlString.length}`)
-
+        let serviceCalls = [];
+        if (jsonData.root && jsonData.root.children[1]) {
+            serviceCalls = jsonData.root.children[1].children; // TODO better way to do this
+        }
         return {
-            shows: jsonData.root.children[1].children // TODO better way to do this
+            serviceCalls: serviceCalls
         }
 
     }
@@ -48,22 +48,43 @@ class ReactiveJobs extends React.Component {
             {
                 Header: 'Call Number',
                 accessor: 'children[2].content', // String-based value accessors!
+                Cell: props => <Link as={`/reactiveJobDetail?${props.value}`} href={`/reactiveJobDetail?id=${props.value}`}>
+                    <a>{props.value}</a>
+                </Link>
             },
             {
+                Header: 'Description',
+                accessor: 'children[1].content',
+                style: {'white-space': 'unset'},
+            }, {
                 Header: 'Customer Code',
                 accessor: 'children[3].content',
             },
             {
                 Header: 'Customer Name',
                 accessor: 'children[4].content',
+                style: {'white-space': 'unset'},
             },
             {
-                Header: 'Type Code',
+                Header: 'Action',
+                accessor: 'children[0].content',
+            },
+            {
+                Header: 'Status',
+                accessor: 'children[8].content',
+                style: {'white-space': 'unset'},            },
+            {
+                Header: 'Priority',
+                accessor: 'children[6].content',
+            },
+            {
+                Header: 'Required Date',
                 accessor: 'children[7].content',
             },
             {
-                Header: 'Description',
-                accessor: 'children[1].content',
+                Header: 'Operator',
+                accessor: 'children[5].content',
+                style: {'white-space': 'unset'},
             },
         ]
 
@@ -73,9 +94,12 @@ class ReactiveJobs extends React.Component {
                 <h1>Reactive Maintenance</h1>
 
                 <ReactTable
-                    data={this.props.shows}
+                    data={this.props.serviceCalls}
                     columns={columns}
                     defaultPageSize={10}
+                    filterable={true}
+                    defaultFilterMethod={(filter, row) =>
+                        (row[filter.id].toUpperCase().includes(filter.value.toUpperCase()))}
                 />
 
             </Layout>

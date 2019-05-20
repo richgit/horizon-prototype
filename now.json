@@ -6,6 +6,7 @@
   ],
   "routes": [
     { "src": "/api/pronto/getJobs", "dest": "/api/pronto/getJobs.js" },
-    { "src": "/api/pronto/login", "dest": "/api/pronto/login.js" }
+    { "src": "/api/pronto/login", "dest": "/api/pronto/login.js" },
+    { "src": "/api/pronto/job", "dest": "/api/pronto/job.js" }
   ]
 }

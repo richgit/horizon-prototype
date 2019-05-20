@@ -17,7 +17,7 @@ export default function Header() {
                 <div className="collapse navbar-collapse" id="navbarResponsive">
                     <ul className="navbar-nav ml-auto ">
                         <li className="nav-item pt-md-3 pt-2 pr-4">
-                            <Link prefetch href="/index">
+                            <Link prefetch href="/">
                                 <a className="text-dark">Home</a>
                             </Link>
                         </li>

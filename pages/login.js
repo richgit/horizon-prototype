@@ -1,11 +1,13 @@
 // www/pages/login.js
 
-import {Component} from 'react'
+import {Component, default as React} from 'react'
 import fetch from 'isomorphic-unfetch'
 import Layout from "../components/Layout";
 import {setCookie} from "../utils/Cookies";
 import {getBaseApiUrl} from "../utils/Requests";
 import parse from "xml-parser";
+import ErrorMessage from "../components/ErrorMessage";
+import InfoMessage from "../components/InfoMessage";
 
 class Login extends Component {
 
@@ -33,7 +35,7 @@ class Login extends Component {
         super(props)
         console.log('login:constructor');
 
-        this.state = {username: '', password: '', error: ''}
+        this.state = {username: '', password: '', error: '', message:''}
         // this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -67,7 +69,17 @@ class Login extends Component {
         console.log('xmlString', xmlString);
         const jsonData = parse(xmlString);
         console.log('jsonData', jsonData);
-        setCookie('pronto-token', jsonData.root.children[0].content); // TODO better way to do this
+
+        const token = jsonData.root.children[0].content;
+        if (jsonData.root.children[0].content) {
+            setCookie('pronto-token', token);
+            this.setState({message: 'Successful Login'})
+            this.setState({error: ''})
+        } else {
+            this.setState({error: 'Invalid username or password'})
+            this.setState({message: ''})
+        }
+
         //     if (response.ok) {
         //         console.log('resp',response);
         //         const xmlString = await response.text()
@@ -91,9 +103,9 @@ class Login extends Component {
         return (
             <Layout>
                 <div className="alert alert-warning" role="alert">
-                    You need to log on to access resticted areas of this site.
+                    You need to log on to access restricted areas of this site.
                 </div>
-                <form className="mx-5" onSubmit={this.handleSubmit}>
+                <form className="m-5" onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="username">Userid</label>
                         <input type="text" className="form-control"
@@ -118,11 +130,15 @@ class Login extends Component {
                         />
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
+
                 </form>
+
+                <InfoMessage message={this.state.message}/>
+                <ErrorMessage message={this.state.error}/>
 
             </Layout>
         )
     }
 }
 
-export default Login
+export default Login;

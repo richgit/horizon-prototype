@@ -3,6 +3,8 @@ var fetch = require('isomorphic-unfetch');
 
 module.exports = (req, res) => {
 
+    console.log('req.headers', req.headers);
+    console.log('req.headers[\'jobId\']', req.headers['jobid']);
     fetch('https://aquaheat-xi-03.prontohosted.com.au/pronto/rest/t15.customerportal/api/ServiceGetServiceCalls', {
         method: "POST",
         headers: {
@@ -10,6 +12,9 @@ module.exports = (req, res) => {
             'Content-Type': 'application/xml'
         },
         body: '<ServiceGetServiceCallsRequest>\n' +
+            '<Parameters>\n' +
+            '   <CallNo> ' + req.headers['jobid'] + '</CallNo>\n' +
+            '</Parameters>\n' +
             '    <RequestFields>\n' +
             '        <ServiceCalls>\n' +
             '            <ServiceCall>\n' +

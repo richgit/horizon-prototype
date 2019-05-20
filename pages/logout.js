@@ -3,6 +3,7 @@
 import {Component} from 'react'
 import Layout from "../components/Layout";
 import {removeCookie} from "../utils/Cookies";
+import InfoMessage from "../components/InfoMessage";
 
 class Logout extends Component {
 
@@ -10,7 +11,7 @@ class Logout extends Component {
         super(props)
         console.log('login:constructor');
 
-        this.state = {error: ''}
+        this.state = {message: ''}
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
@@ -23,6 +24,7 @@ class Logout extends Component {
         try {
 
             removeCookie('pronto-token');
+            this.setState({message: 'You have logged out'})
 
         } catch (error) {
             console.error(
@@ -39,10 +41,11 @@ class Logout extends Component {
                 <div className="alert alert-warning" role="alert">
                     Click button to log out of this portal.
                 </div>
-                <form className="mx-5" onSubmit={this.handleSubmit}>
+                <form className="m-5" onSubmit={this.handleSubmit}>
                     <button type="submit" className="btn btn-primary">Logout</button>
                 </form>
 
+                <InfoMessage message={this.state.message}/>
             </Layout>
         )
     }

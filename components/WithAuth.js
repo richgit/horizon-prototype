@@ -13,13 +13,14 @@ const WithAuth = (WrappedComponent) => {
 
             console.log('token from cookie', token)
 
+            if (!token) {
+                console.log('WithAuth: redirecting')
+                RedirectTo(ctx, '/login')
+            }
+
             const componentProps =
                 WrappedComponent.getInitialProps &&
                 (await WrappedComponent.getInitialProps(ctx))
-
-            // if (!token) {
-            //     RedirectTo(ctx, '/login')
-            // }
 
             return {...componentProps, token}
         }
