@@ -36,6 +36,7 @@ class ReactiveJobs extends React.Component {
         if (jsonData.root && jsonData.root.children[1]) {
             serviceCalls = jsonData.root.children[1].children; // TODO better way to do this
         }
+        console.log('serviceCalls[0]', serviceCalls[0])
         return {
             serviceCalls: serviceCalls
         }
@@ -48,15 +49,40 @@ class ReactiveJobs extends React.Component {
             {
                 Header: 'Call Number',
                 accessor: 'children[2].content', // String-based value accessors!
-                Cell: props => <Link as={`/reactiveJobDetail?id=${props.value}`} href={`/reactiveJobDetail?id=${props.value}`}>
+                Cell: props => <Link as={`/reactiveJobDetail?id=${props.value}`}
+                                     href={`/reactiveJobDetail?id=${props.value}`}>
                     <a>{props.value}</a>
                 </Link>
             },
+
+            // {
+            //     Header: 'PPP',
+            //     accessor: '"children[7].content"',
+            //     maxWidth: 250,
+            //     filterAll: true,
+            //     filterMethod: (filter, rows, column) => {
+            //         matchSorter(rows, filter.value, {keys: [column.Header]});
+            //     },
+            //     Filter: ({filter, onChange}) => {
+            //         return (
+            //             <Select
+            //                 value={filter ? filter.value : ''}
+            //                 options={this.props.serviceCalls}
+            //                 onChange={event => onChange(event.target.value)}
+            //             />)
+            //                     },
+
             {
                 Header: 'Description',
                 accessor: 'children[1].content',
                 style: {'white-space': 'unset'},
-            }, {
+            },
+            {
+                Header: 'Customer Reference',
+                accessor: 'children[5].content',
+                style: {'white-space': 'unset'},
+            },
+            {
                 Header: 'Customer Code',
                 accessor: 'children[3].content',
             },
@@ -71,19 +97,44 @@ class ReactiveJobs extends React.Component {
             },
             {
                 Header: 'Status',
-                accessor: 'children[8].content',
-                style: {'white-space': 'unset'},            },
-            {
-                Header: 'Priority',
-                accessor: 'children[6].content',
+                accessor: 'children[9].content',
+                style: {'white-space': 'unset'},
             },
             {
-                Header: 'Required Date',
+                Header: 'Priority',
                 accessor: 'children[7].content',
             },
             {
+                Header: "Test Priority",
+                accessor: "children[7].content",
+                // Cell: ({value}) => (value >= 21 ? "Yes" : "No"),
+                // filterMethod: (filter, row) => {
+                //     if (filter.value === "all") {
+                //         return true;
+                //     }
+                //     if (filter.value === "true") {
+                //         return row[filter.id] >= 21;
+                //     }
+                //     return row[filter.id] < 21;
+                // },
+                Filter: ({filter, onChange}) =>
+                    <select
+                        onChange={event => onChange(event.target.value)}
+                        style={{width: "100%"}}
+                        value={filter ? filter.value : ""}
+                        // multi={true}
+                        options={this.props.serviceCalls.map((o, i) => {
+                            return { id: i, value: 'ppp', label: 'lll' };
+                        })}
+                    />
+            },
+            {
+                Header: 'Required Date',
+                accessor: 'children[8].content',
+            },
+            {
                 Header: 'Operator',
-                accessor: 'children[5].content',
+                accessor: 'children[6].content',
                 style: {'white-space': 'unset'},
             },
         ]

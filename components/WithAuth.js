@@ -13,7 +13,7 @@ const WithAuth = (WrappedComponent) => {
 
             console.log('token from cookie', token)
 
-            if (!token) {
+            if (!token) { // TODO this also needs to handle an expired token
                 console.log('WithAuth: redirecting')
                 RedirectTo(ctx, '/login')
             }

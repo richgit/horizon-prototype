@@ -21,6 +21,7 @@ module.exports = (req, res) => {
             '                <Status />\n' +
             '                <Priority />\n' +
             '                <Operator />\n' +
+            '                <CustomerReference />\n' +
             '            </ServiceCall>\n' +
             '        </ServiceCalls>\n' +
             '    </RequestFields>\n' +
